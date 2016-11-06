@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{82DC1FC7-9544-1E4E-8446-43AB41E768CF}</ProjectGuid>
+    <ProjectGuid>{593BEF5D-4979-DDA4-D0B8-4BB36FD6B61D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -58,8 +58,8 @@
      <Compile Include="Assets\MyScripts\playerBullet.cs" />
      <Compile Include="Assets\MyScripts\playerController.cs" />
      <Compile Include="Assets\MyScripts\score.cs" />
-     <None Include="Assets\Example Games\2D Scrolling Shooter\Fonts\PressStart2P-Regular\OFL.txt" />
-     <None Include="Assets\Example Games\2D Scrolling Shooter\_ReadMe.txt" />
+     <Compile Include="Assets\MyScripts\star.cs" />
+     <Compile Include="Assets\MyScripts\starGenerator.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Programs/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -69,7 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{C8214940-D06A-5E70-0246-3295D864B206}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{DEA96CB1-4812-66EA-5A1A-A24CC75E9459}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
