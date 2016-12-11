@@ -7,6 +7,8 @@ public class gameManager : MonoBehaviour {
 	public GameObject exitButton;
 	public GameObject playerShip;
 	public GameObject enemySpawner;
+	public GameObject enemySpawner2;
+	public GameObject bombSpawner;
 	public GameObject asteroidSpawner;
 	public GameObject scoreTextUIGO;
 	public GameObject BackgroundMusicGameObject;
@@ -52,7 +54,9 @@ public class gameManager : MonoBehaviour {
 
 			//start enemySpawner and asteroidSpawner
 			enemySpawner.GetComponent<enemySpawner>().ScheduleEnemySpawner();
+			enemySpawner2.GetComponent<enemySpawner2>().ScheduleRocketSpawner();
 			asteroidSpawner.GetComponent<asteroidSpawner>().ScheduleAsteroidSpawner();
+			bombSpawner.GetComponent<bombSpawner>().ScheduleBombSpawner();
 
 			//reset score
 			scoreTextUIGO.GetComponent<score>().ScheduleScore = 0;
@@ -66,7 +70,9 @@ public class gameManager : MonoBehaviour {
 
 			//stop enemy and asteroid spawner
 			enemySpawner.GetComponent<enemySpawner>().UnscheduleEnemySpawner();
+			enemySpawner2.GetComponent<enemySpawner2>().UnscheduleRocketSpawner();
 			asteroidSpawner.GetComponent<asteroidSpawner>().UnscheduleAsteroidSpawner();
+			bombSpawner.GetComponent<bombSpawner>().UnscheduleBombSpawner();
 		
 			//display game over
 

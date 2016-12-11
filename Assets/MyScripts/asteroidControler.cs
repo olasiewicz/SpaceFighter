@@ -4,9 +4,11 @@ using System.Collections;
 public class asteroidControler : MonoBehaviour {
 	public GameObject ExplosionGameObject; // explosion prefab
 	public float speed;
+	GameObject scoreText;
 	// Use this for initialization
 	void Start () {
 		speed = 0.8f;
+		scoreText = GameObject.FindGameObjectWithTag("ScoreTextTag");
 	}
 
 	// Update is called once per frame
@@ -34,6 +36,7 @@ public class asteroidControler : MonoBehaviour {
 		//Detect collision of the asteroid with player ship or bullet
 		if ((coll.tag == "PlayerTag") || (coll.tag == "PlayerBulletTag")) {
 			RunExplosion ();
+			scoreText.GetComponent<score> ().ScheduleScore += 1;
 			Destroy (gameObject);
 		}
 	}

@@ -4,6 +4,8 @@ using System.Collections;
 public class enemyController : MonoBehaviour {
 
 	public GameObject ExplosionGameObject; // explosion prefab
+	GameObject EnemyGun;
+	GameObject player;
 	public float speed;
 	GameObject scoreText;
 
@@ -11,6 +13,8 @@ public class enemyController : MonoBehaviour {
 	void Start () {
 		speed = Random.Range (1f, 3f);
 		scoreText = GameObject.FindGameObjectWithTag("ScoreTextTag");
+		player = GameObject.FindGameObjectWithTag("PlayerTag");
+	
 	}
 	
 	// Update is called once per frame
@@ -36,11 +40,13 @@ public class enemyController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D coll) {
 		//Detect collision of the enemy ship with player ship or bullet
-		if ((coll.tag == "PlayerTag") || (coll.tag == "PlayerBulletTag")) {
+		if (((coll.tag == "PlayerTag")) || (coll.tag == "PlayerBulletTag") || (coll.tag == "RocketTag") 
+			|| (coll.tag == "AsteroidTag") || (coll.tag == "EnemyTag")) {
 			RunExplosion ();
 			scoreText.GetComponent<score> ().ScheduleScore += 2;
 			Destroy (gameObject);
-		}
+	
+	}
 	}
 
 	//Method to instatiate an explosion

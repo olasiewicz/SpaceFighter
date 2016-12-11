@@ -42,7 +42,7 @@ public class enemyBullet : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D coll) {
 		//Detect collision of the enemy bullet with player
-		if (coll.tag == "PlayerTag") {
+		if ((coll.tag == "PlayerTag") || (coll.tag == "AsteroidTag") || (coll.tag == "RocketTag")) {
 			Destroy (gameObject);
 		}
 	}

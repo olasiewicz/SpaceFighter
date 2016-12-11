@@ -4,7 +4,7 @@ using System.Collections;
 public class enemySpawner : MonoBehaviour {
 
 	public GameObject enemyGameObject;//prefab
-	float maxSpawnRateInSecond  =5f;
+	float maxSpawnRateInSecond  =3f;
 
 	// Use this for initialization
 	void Start () {
@@ -38,7 +38,7 @@ public class enemySpawner : MonoBehaviour {
 			spawnInSecond = Random.Range (1f, maxSpawnRateInSecond);
 
 		} else {
-			spawnInSecond = 1f;
+			spawnInSecond = 1f;//1f;
 		}
 
 		Invoke ("spawnEnemy", spawnInSecond);
@@ -48,7 +48,7 @@ public class enemySpawner : MonoBehaviour {
 	void IncreaseSpawnRate() {
 
 		if (maxSpawnRateInSecond > 1f) {
-			maxSpawnRateInSecond--; //enemy all the time
+			maxSpawnRateInSecond = maxSpawnRateInSecond - 0.4f; //enemy all the time  //maxSpawnRateInSecond--
 		}
 
 		if (maxSpawnRateInSecond == 1f) {

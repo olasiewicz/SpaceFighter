@@ -11,7 +11,6 @@ public class starGenerator : MonoBehaviour {
 		new Color(0.5f, 0.5f, 1f), //blue
 		new Color(0, 1f, 1f), //green
 		new Color(1f, 1f, 0), //yellow
-		new Color(1f, 0, 0) //red
 	};
 
 	// Use this for initialization
@@ -34,8 +33,13 @@ public class starGenerator : MonoBehaviour {
 			//set random position of the star
 			star.transform.position = new Vector2(Random.Range(min.x, max.x), Random.Range(min.y, max.y));
 
+			//star size
+			float starSize = Random.Range (0.1f, 0.5f);
+			star.transform.localScale = new Vector2 (starSize, starSize);
+
+
 			//set random speed for the star
-			star.GetComponent<star>().speed = -(1f * Random.value + 0.5f);
+			star.GetComponent<star>().speed = -(1f * Random.Range(0.1f,0.7f));
 
 			//make the star a child of the starGeneratorGameObject
 			star.transform.parent = transform;

@@ -16,6 +16,20 @@ public class playerController : MonoBehaviour {
 	public GameObject bulletPosition1;
 	public GameObject bulletPosition2;
 	public GameObject ExplosionGameObject;//explosion prefab
+	GameObject[] gameObjects;
+	GameObject protector;
+	GameObject turboFire;
+	private bool isPlayerProtected = false;
+	int counter;
+
+	public bool IsPlayerProtected {
+		get {
+			return isPlayerProtected;
+		}
+		set {
+			isPlayerProtected = value;
+		}
+	}
 
 	//reference to lives
 	public Text LivesUIText;
@@ -45,6 +59,9 @@ public class playerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rigidBody = this.GetComponent<Rigidbody2D> ();
+		protector = GameObject.FindGameObjectWithTag("ProtectorTag");
+		turboFire = GameObject.FindGameObjectWithTag("TurboTag");
+		protector.SetActive (false);
 		//Init ();
 	}
 
@@ -52,10 +69,14 @@ public class playerController : MonoBehaviour {
 		Vector2 moveVec = new Vector2 (CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical")) * moveForce;
 		bool isFire = CrossPlatformInputManager.GetButton ("Fire");
 		bool isTurbo = CrossPlatformInputManager.GetButton ("T");
-
-
 	
 		rigidBody.AddForce (moveVec * (isTurbo ? fireMultiplier : 1));
+
+		if (isTurbo) {
+			turboFire.SetActive (true);
+		} else {
+			turboFire.SetActive (false);
+			}
 
 		//fire bullet, when button fire pressed
 		if (isFire && !afterFire) {
@@ -99,27 +120,31 @@ public class playerController : MonoBehaviour {
 		}
 
 		transform.rotation = Quaternion.Euler (0.0f, 0.0f, rigidBody.velocity.x * -tilt);
+
+
 	}
 
 	void OnTriggerEnter2D(Collider2D coll) {
 		//Detect collision of the player ship with enemy ship or bullet
-		if ((coll.tag == "EnemyTag") || (coll.tag == "EnemyBulletTag") || (coll.tag == "AsteroidTag")) {
+		if (((coll.tag == "EnemyTag") || (coll.tag == "EnemyBulletTag") || (coll.tag == "AsteroidTag") || (coll.tag == "RocketTag") || (coll.tag == "BombTag"))) {
 
-			RunExplosion ();
+			if (!isPlayerProtected) {
 
-			lives--;
-			LivesUIText.text = lives.ToString ();
-
-			gameObject.SetActive (false);
-
-			//set player visible after 1s
-			Invoke ("PlayerActiveTrue", 1f);
-
-			if(lives == 0){
-				GameManagerGO.GetComponent<gameManager> ().setGameManagerState (gameManager.GameManagerState.GameOver);
+				RunExplosion ();
+				lives--;
+				LivesUIText.text = lives.ToString ();
 				gameObject.SetActive (false);
+				destroyObjects ("RocketTag");
+		
+				//set player visible after 1s
+				Invoke ("PlayerActiveTrue", 1f);
+
+				if (lives == 0) {
+					GameManagerGO.GetComponent<gameManager> ().setGameManagerState (gameManager.GameManagerState.GameOver);
+					gameObject.SetActive (false);
+				}
+				//Destroy (gameObject);
 			}
-			//Destroy (gameObject);
 		}
 	}
 
@@ -135,6 +160,60 @@ public class playerController : MonoBehaviour {
 	void PlayerActiveTrue(){
 		if (lives > 0) {
 			gameObject.SetActive (true);
+			isPlayerProtected = true;	
+			protector.SetActive (true);
+			counter = 0;
+		
+				//Invoke ("Invisible", 0.3f);
+
+			Invoke ("setIsNotPlayerProtected", 3f);
+
 		}
 	}
+
+	void destroyObjects (string name)
+	{
+		gameObjects = GameObject.FindGameObjectsWithTag (name);
+
+		for (var i = 0; i < gameObjects.Length; i++) {
+			Destroy (gameObjects [i]);
+		}
+	}
+
+	void setIsNotPlayerProtected(){
+		isPlayerProtected = false;
+		protector.SetActive (false);
+	}
+		
+
+
+		
+
+	void DisappearanceLogic() 
+	{
+		if(gameObject.activeSelf) 
+		{
+			gameObject.SetActive (false);
+		}
+		else
+		{
+			gameObject.SetActive (true);
+		}
+	}
+		
+
+	void Invisible(){
+		gameObject.SetActive (false);
+
+			Invoke ("Visible", 0.3f);
+			counter++;
+	}
+
+	void Visible(){
+		gameObject.SetActive (true);
+		if (counter < 6) {
+			Invoke ("Invisible", 0.3f);
+		}
+	}
+
 }

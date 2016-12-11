@@ -4,9 +4,17 @@ using System.Collections;
 public class enemyGun : MonoBehaviour {
 
 	public GameObject EnemyBulletGameObject; //bullet's prefab
+	private bool isFire = false;
+
+	public bool IsFire {
+		get {
+			return isFire;
+		}
+	}
 
 	// Use this for initialization
 	void Start () {
+		isFire = false;
 		//fire enemy bullet randomly
 		Invoke("FireEnemyBullet", 1f);
 
@@ -19,6 +27,7 @@ public class enemyGun : MonoBehaviour {
 
 	//fire enemy bullet
 	void FireEnemyBullet() {
+		isFire = true;
 		//get player reference
 		GameObject playerShip = GameObject.Find("PlayerGameObject");
 
