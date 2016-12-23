@@ -2,19 +2,22 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MyScripts\playerController.cs">
     <Files>
-      <File FileName="Assets\MyScripts\playerController.cs" Line="78" Column="9" />
-      <File FileName="Assets\MyScripts\enemyController.cs" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\rocketControler.cs" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\bombControler.cs" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\Rotator.cs" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\gameManager.cs" Line="92" Column="11" />
+      <File FileName="Assets\MyScripts\protectorSpawner.cs" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\rocketControler.cs" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\enemySpawner2.cs" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\enemyController.cs" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\starGenerator.cs" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\star.cs" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\enemySpawner.cs" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\gameManager.cs" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\bombSpawner.cs" Line="1" Column="1" />
-      <File FileName="Assets\MyScripts\enemySpawner2.cs" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\asteroidControler.cs" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\enemyBullet.cs" Line="1" Column="1" />
       <File FileName="Assets\MyScripts\playerBullet.cs" Line="1" Column="1" />
+      <File FileName="Assets\MyScripts\protectorControler.cs" Line="42" Column="33" />
+      <File FileName="Assets\MyScripts\playerController.cs" Line="156" Column="54" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

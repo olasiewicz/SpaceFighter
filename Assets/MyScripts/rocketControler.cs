@@ -35,7 +35,6 @@ public class rocketControler : MonoBehaviour {
 			float angle = Mathf.Atan2 (vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
 			Quaternion q = Quaternion.AngleAxis (angle, Vector3.forward);
 			transform.rotation = Quaternion.Slerp (transform.rotation, q, Time.deltaTime * rotationSpeed);
-
 			normalizeDirection = (target.position - transform.position).normalized;
 			transform.position += normalizeDirection * speed * Time.deltaTime;
 		} else {

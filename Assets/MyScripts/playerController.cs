@@ -19,6 +19,10 @@ public class playerController : MonoBehaviour {
 	GameObject[] gameObjects;
 	GameObject protector;
 	GameObject turboFire;
+	GameObject playerTurboMusic;
+	AudioSource shootAudio;
+	AudioSource shieldAudio;
+
 	private bool isPlayerProtected = false;
 	int counter;
 
@@ -53,16 +57,20 @@ public class playerController : MonoBehaviour {
 
 		//player visible
 		gameObject.SetActive (true);
-
 	}
 
 	// Use this for initialization
 	void Start () {
+
+		AudioSource[] audio = GetComponents<AudioSource> ();
+		shootAudio = audio [0];
+		shieldAudio = audio [1];
+
 		rigidBody = this.GetComponent<Rigidbody2D> ();
 		protector = GameObject.FindGameObjectWithTag("ProtectorTag");
 		turboFire = GameObject.FindGameObjectWithTag("TurboTag");
+		turboFire.SetActive (true);
 		protector.SetActive (false);
-		//Init ();
 	}
 
 	void FixedUpdate () {
@@ -90,16 +98,14 @@ public class playerController : MonoBehaviour {
 			bullet2.transform.position = bulletPosition2.transform.position;
 
 			//shoot sound
-			GetComponent<AudioSource> ().Play ();
+			shootAudio.Play ();
 		
 		}
 		if (!isFire) {
 			afterFire = false;
 		}
 
-		//rigidBody.position = new Vector2 (Mathf.Clamp (rigidBody.position.x, boundary.xMin, boundary.xMax), Mathf.Clamp (rigidBody.position.y, boundary.yMin, boundary.yMax));
-
-
+	
 		//boundary x
 		if (rigidBody.position.x > boundary.xMax) {
 			transform.position = new Vector2 (boundary.xMin, rigidBody.position.y);
@@ -146,6 +152,15 @@ public class playerController : MonoBehaviour {
 				//Destroy (gameObject);
 			}
 		}
+
+		if ((coll.tag == "ShieldTag") && !isPlayerProtected) {
+			//shoot sound
+			shieldAudio.Play ();
+			isPlayerProtected = true;
+			protector.SetActive (true);
+			Invoke ("setIsNotPlayerProtected", 10f);
+		}
+
 	}
 
 	//Method to instatiate an explosion
@@ -214,6 +229,10 @@ public class playerController : MonoBehaviour {
 		if (counter < 6) {
 			Invoke ("Invisible", 0.3f);
 		}
+	}
+
+	public void TurboMusicOff() {
+		turboFire.GetComponent<AudioSource> ().Stop ();
 	}
 
 }

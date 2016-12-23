@@ -10,9 +10,11 @@ public class gameManager : MonoBehaviour {
 	public GameObject enemySpawner2;
 	public GameObject bombSpawner;
 	public GameObject asteroidSpawner;
+	public GameObject protectorSpawner;
 	public GameObject scoreTextUIGO;
 	public GameObject BackgroundMusicGameObject;
 	GameObject backgroundMusic;
+	GameObject[] gameObjects;
 
 	public enum GameManagerState{Opening, GamePlay, GameOver};
 
@@ -45,18 +47,19 @@ public class gameManager : MonoBehaviour {
 		case GameManagerState.GamePlay:
 			
 			//hide start button
-			playButton.transform.position = new Vector2(-100, -100);
+			playButton.transform.position = new Vector2 (-100, -100);
 
 			//hide exit button
-			exitButton.transform.position = new Vector2(-100, -100);
+			exitButton.transform.position = new Vector2 (-100, -100);
 
 			playerShip.GetComponent<playerController> ().Init ();
 
 			//start enemySpawner and asteroidSpawner
-			enemySpawner.GetComponent<enemySpawner>().ScheduleEnemySpawner();
-			enemySpawner2.GetComponent<enemySpawner2>().ScheduleRocketSpawner();
-			asteroidSpawner.GetComponent<asteroidSpawner>().ScheduleAsteroidSpawner();
-			bombSpawner.GetComponent<bombSpawner>().ScheduleBombSpawner();
+			enemySpawner.GetComponent<enemySpawner> ().ScheduleEnemySpawner ();
+			enemySpawner2.GetComponent<enemySpawner2> ().ScheduleRocketSpawner ();
+			asteroidSpawner.GetComponent<asteroidSpawner> ().ScheduleAsteroidSpawner ();
+			bombSpawner.GetComponent<bombSpawner> ().ScheduleBombSpawner ();
+			protectorSpawner.GetComponent<protectorSpawner> ().ScheduleProtectionSpawner ();
 
 			//reset score
 			scoreTextUIGO.GetComponent<score>().ScheduleScore = 0;
@@ -73,7 +76,13 @@ public class gameManager : MonoBehaviour {
 			enemySpawner2.GetComponent<enemySpawner2>().UnscheduleRocketSpawner();
 			asteroidSpawner.GetComponent<asteroidSpawner>().UnscheduleAsteroidSpawner();
 			bombSpawner.GetComponent<bombSpawner>().UnscheduleBombSpawner();
+			protectorSpawner.GetComponent<protectorSpawner> ().UnscheduleProtectionSpawner ();
 		
+			destroyObjects ("EnemyTag");
+			destroyObjects ("AsteroidTag");
+			destroyObjects ("RocketTag");
+			destroyObjects ("TurboTag");
+
 			//display game over
 
 			//change status to opening after 5s
@@ -81,6 +90,7 @@ public class gameManager : MonoBehaviour {
 
 			//stop backgroud music
 			backgroundMusic.GetComponent<AudioSource> ().Stop ();
+			playerShip.GetComponent<playerController> ().TurboMusicOff();
 			
 			break;
 		}
@@ -106,6 +116,16 @@ public class gameManager : MonoBehaviour {
 	//function to change gameManagerState to opening
 	public void ChangeGameManagerStateToOpening(){
 		setGameManagerState (GameManagerState.Opening);
+	}
+
+	void destroyObjects (string name)
+	{
+		gameObjects =  GameObject.FindGameObjectsWithTag (name);
+
+		for (var i = 0; i < gameObjects.Length; i++) {
+			gameObjects [i].SetActive(false);
+
+		}
 	}
 
 }
