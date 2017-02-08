@@ -41,11 +41,10 @@ public class enemyController : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D coll) {
 		//Detect collision of the enemy ship with player ship or bullet
 		if (((coll.tag == "PlayerTag")) || (coll.tag == "PlayerBulletTag") || (coll.tag == "RocketTag") 
-			|| (coll.tag == "AsteroidTag") || (coll.tag == "EnemyTag")) {
+			|| (coll.tag == "AsteroidTag") || (coll.tag == "EnemyTag") || (coll.tag == "SawTag")) {
 			RunExplosion ();
 			scoreText.GetComponent<score> ().ScheduleScore += 2;
 			Destroy (gameObject);
-	
 	}
 	}
 
@@ -56,5 +55,4 @@ public class enemyController : MonoBehaviour {
 		//set position of the explosion
 		explosion.transform.position = transform.position;
 	}
-
 }

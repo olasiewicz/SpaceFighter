@@ -12,19 +12,37 @@ public class playerController : MonoBehaviour {
 
 	public GameObject GameManagerGO;//prefab to GameManager
 
-	public GameObject BulletPlayerGameObject;
+	public GameObject BulletPlayerGameObj;
 	public GameObject bulletPosition1;
 	public GameObject bulletPosition2;
 	public GameObject ExplosionGameObject;//explosion prefab
 	GameObject[] gameObjects;
 	GameObject protector;
+	GameObject shield;
 	GameObject turboFire;
+	GameObject clockProtection;
 	GameObject playerTurboMusic;
 	AudioSource shootAudio;
 	AudioSource shieldAudio;
+	AudioSource weaponChargeAudio;
+	GameObject bulletScore1;
+	GameObject bulletScore2;
+	GameObject bulletScore3;
 
 	private bool isPlayerProtected = false;
 	int counter;
+	private int bulletCounter;
+
+	public int BulletCounter {
+		get {
+			return bulletCounter;
+		}
+		set {
+			bulletCounter = value;
+		}
+	}
+
+	bool isAllowToFire;
 
 	public bool IsPlayerProtected {
 		get {
@@ -50,13 +68,20 @@ public class playerController : MonoBehaviour {
 	//TODO
 	public void Init() {
 		lives = MaxLives;
-		LivesUIText.text = lives.ToString ();
+		LivesUIText.text = "" + 3;
 
 		gameObject.transform.position = new Vector2(0, -2);
 
-
 		//player visible
 		gameObject.SetActive (true);
+		bulletScore3.SetActive (true);
+		bulletScore2.SetActive (true);
+		bulletScore1.SetActive (true);
+		isAllowToFire = true;
+		bulletCounter = 60;
+		protector.SetActive (true);
+		clockProtection.GetComponent<clockController> ().InitClock (3);
+		Invoke ("setIsNotPlayerProtected", 3f);
 	}
 
 	// Use this for initialization
@@ -65,13 +90,18 @@ public class playerController : MonoBehaviour {
 		AudioSource[] audio = GetComponents<AudioSource> ();
 		shootAudio = audio [0];
 		shieldAudio = audio [1];
-
+		weaponChargeAudio = audio [2];
 		rigidBody = this.GetComponent<Rigidbody2D> ();
 		protector = GameObject.FindGameObjectWithTag("ProtectorTag");
+		shield = GameObject.FindGameObjectWithTag("ShieldTag");
 		turboFire = GameObject.FindGameObjectWithTag("TurboTag");
+		clockProtection = GameObject.FindGameObjectWithTag("ClockTag");
+		bulletScore1 = GameObject.FindGameObjectWithTag("BulletScore1Tag");
+		bulletScore2 = GameObject.FindGameObjectWithTag("BulletScore2Tag");
+		bulletScore3 = GameObject.FindGameObjectWithTag("BulletScore3Tag");
 		turboFire.SetActive (true);
-		protector.SetActive (false);
 	}
+
 
 	void FixedUpdate () {
 		Vector2 moveVec = new Vector2 (CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical")) * moveForce;
@@ -87,14 +117,17 @@ public class playerController : MonoBehaviour {
 			}
 
 		//fire bullet, when button fire pressed
-		if (isFire && !afterFire) {
+		if (isFire && !afterFire && isAllowToFire) {
 			afterFire = true;
 			//instantiate the first bullet
-			GameObject bullet1 = (GameObject) Instantiate(BulletPlayerGameObject);
+			GameObject bullet1 = (GameObject) Instantiate(BulletPlayerGameObj);
 			bullet1.transform.position = bulletPosition1.transform.position;
+			bulletCounter--;
+
+			BulletScoreController (bulletCounter);
 
 			//instantiate the second bullet
-			GameObject bullet2 = (GameObject) Instantiate(BulletPlayerGameObject);
+			GameObject bullet2 = (GameObject) Instantiate(BulletPlayerGameObj);
 			bullet2.transform.position = bulletPosition2.transform.position;
 
 			//shoot sound
@@ -132,7 +165,8 @@ public class playerController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D coll) {
 		//Detect collision of the player ship with enemy ship or bullet
-		if (((coll.tag == "EnemyTag") || (coll.tag == "EnemyBulletTag") || (coll.tag == "AsteroidTag") || (coll.tag == "RocketTag") || (coll.tag == "BombTag"))) {
+		if (((coll.tag == "EnemyTag") || (coll.tag == "EnemyBulletTag") || (coll.tag == "AsteroidTag") || (coll.tag == "RocketTag") 
+			|| (coll.tag == "BombTag") || (coll.tag == "SawTag"))) {
 
 			if (!isPlayerProtected) {
 
@@ -157,10 +191,14 @@ public class playerController : MonoBehaviour {
 			//shoot sound
 			shieldAudio.Play ();
 			isPlayerProtected = true;
+			clockProtection.GetComponent<clockController> ().InitClock (10);
 			protector.SetActive (true);
 			Invoke ("setIsNotPlayerProtected", 10f);
 		}
 
+		if ((coll.tag == "WeaponChargeTag")) {
+			weaponChargeAudio.Play ();
+		}
 	}
 
 	//Method to instatiate an explosion
@@ -176,6 +214,7 @@ public class playerController : MonoBehaviour {
 		if (lives > 0) {
 			gameObject.SetActive (true);
 			isPlayerProtected = true;	
+			clockProtection.GetComponent<clockController> ().InitClock (3);
 			protector.SetActive (true);
 			counter = 0;
 		
@@ -233,6 +272,31 @@ public class playerController : MonoBehaviour {
 
 	public void TurboMusicOff() {
 		turboFire.GetComponent<AudioSource> ().Stop ();
+	}
+
+	public void BulletScoreController (int bulletCounter)
+	{
+		 if (bulletCounter <= 60 && bulletCounter >= 40) {
+			bulletScore3.SetActive (true);
+			bulletScore2.SetActive (true);
+			bulletScore1.SetActive (true);
+			isAllowToFire = true;
+		} else if (bulletCounter < 40 && bulletCounter >= 20) {
+			bulletScore3.SetActive (false);
+			bulletScore2.SetActive (true);
+			bulletScore1.SetActive (true);
+			isAllowToFire = true;
+		} else if (bulletCounter < 20 && bulletCounter > 0) {
+			bulletScore3.SetActive (false);
+			bulletScore2.SetActive (false);
+			bulletScore1.SetActive (true);
+			isAllowToFire = true;
+		} else {
+			bulletScore3.SetActive (false);
+			bulletScore2.SetActive (false);
+			bulletScore1.SetActive (false);
+			isAllowToFire = false;
+		}
 	}
 
 }

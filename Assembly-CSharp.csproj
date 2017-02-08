@@ -51,21 +51,31 @@
      <Compile Include="Assets\MyScripts\asteroidSpawner.cs" />
      <Compile Include="Assets\MyScripts\bombControler.cs" />
      <Compile Include="Assets\MyScripts\bombSpawner.cs" />
+     <Compile Include="Assets\MyScripts\bulletController.cs" />
+     <Compile Include="Assets\MyScripts\bulletSpawner.cs" />
+     <Compile Include="Assets\MyScripts\clockController.cs" />
      <Compile Include="Assets\MyScripts\destroyerExplosion.cs" />
      <Compile Include="Assets\MyScripts\enemyBullet.cs" />
      <Compile Include="Assets\MyScripts\enemyController.cs" />
      <Compile Include="Assets\MyScripts\enemyGun.cs" />
      <Compile Include="Assets\MyScripts\enemySpawner.cs" />
      <Compile Include="Assets\MyScripts\enemySpawner2.cs" />
+     <Compile Include="Assets\MyScripts\fireBallControler.cs" />
      <Compile Include="Assets\MyScripts\gameManager.cs" />
      <Compile Include="Assets\MyScripts\playerBullet.cs" />
      <Compile Include="Assets\MyScripts\playerController.cs" />
      <Compile Include="Assets\MyScripts\protectorControler.cs" />
      <Compile Include="Assets\MyScripts\protectorSpawner.cs" />
      <Compile Include="Assets\MyScripts\rocketControler.cs" />
+     <Compile Include="Assets\MyScripts\sawControler.cs" />
+     <Compile Include="Assets\MyScripts\sawRotator.cs" />
+     <Compile Include="Assets\MyScripts\sawSpawner.cs" />
      <Compile Include="Assets\MyScripts\score.cs" />
      <Compile Include="Assets\MyScripts\star.cs" />
      <Compile Include="Assets\MyScripts\starGenerator.cs" />
+     <Compile Include="Assets\ProgressBar\Script\ProgressBarBehaviour.cs" />
+     <Compile Include="Assets\ProgressBar\Script\ProgressRadialBehaviour.cs" />
+     <Compile Include="Assets\ProgressBar\Script\Utils.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Programs/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

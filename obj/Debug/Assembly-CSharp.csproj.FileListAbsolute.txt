@@ -20,7 +20,6 @@ D:\Przyklady kodu\Unity\Space Fighter\Temp\bin\Debug\UnityEngine.UI.xml
 D:\Przyklady kodu\Unity\Space Fighter\Temp\bin\Debug\UnityEngine.Networking.xml
 D:\Przyklady kodu\Unity\Space Fighter\obj\Debug\Assembly-CSharp.dll
 D:\Przyklady kodu\Unity\Space Fighter\obj\Debug\Assembly-CSharp.pdb
-D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\Temp\bin\Debug\Assembly-CSharp.dll
 D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\Temp\bin\Debug\Assembly-CSharp.pdb
 D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\Temp\bin\Debug\UnityEditor.dll
@@ -40,5 +39,6 @@ D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\Temp\bin\Deb
 D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\Temp\bin\Debug\UnityEditor.xml
 D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\Temp\bin\Debug\UnityEngine.UI.xml
 D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\Temp\bin\Debug\UnityEngine.Networking.xml
+D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\obj\Debug\Assembly-CSharp.dll
 D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\obj\Debug\Assembly-CSharp.pdb

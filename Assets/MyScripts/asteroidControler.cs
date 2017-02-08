@@ -5,11 +5,19 @@ public class asteroidControler : MonoBehaviour {
 	public GameObject ExplosionGameObject; // explosion prefab
 	public float speed;
 	GameObject scoreText;
+	int shootCount;
+	private ParticleSystem ps;
+	ParticleSystem.EmissionModule em;
 	// Use this for initialization
 	void Start () {
 		speed = 0.8f;
+		shootCount = 0;
 		scoreText = GameObject.FindGameObjectWithTag("ScoreTextTag");
-	}
+		ps = GetComponent<ParticleSystem>();
+		ps.Stop();
+		em = ps.emission;
+		em.enabled = false;
+		}
 
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -34,10 +42,18 @@ public class asteroidControler : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D coll) {
 		//Detect collision of the asteroid with player ship or bullet
-		if ((coll.tag == "PlayerTag") || (coll.tag == "PlayerBulletTag")) {
+		if ((coll.tag == "PlayerTag") || (coll.tag == "PlayerBulletTag") || (coll.tag == "SawTag")) {
 			RunExplosion ();
-			scoreText.GetComponent<score> ().ScheduleScore += 1;
-			Destroy (gameObject);
+			shootCount++;
+
+			if (shootCount == 2) {
+				ps.Play();
+				em.enabled = true;
+			} else if (shootCount > 5){ 
+				scoreText.GetComponent<score> ().ScheduleScore += 5;
+				Destroy (gameObject);
+				shootCount = 0;
+			}
 		}
 	}
 

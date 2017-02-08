@@ -6,7 +6,6 @@ public class rocketControler : MonoBehaviour {
 	private Vector3 normalizeDirection;
 	private Transform target;
 	public int rotationSpeed;
-	GameObject player;
 
 	//Transform target;
 	Transform myTransform;
@@ -18,7 +17,6 @@ public class rocketControler : MonoBehaviour {
 	void Start () {
 		speed = Random.Range (1f, 3f);
 		scoreText = GameObject.FindGameObjectWithTag("ScoreTextTag");
-		player = GameObject.FindGameObjectWithTag("PlayerTag");
 
 		GameObject playerShip = GameObject.Find("PlayerGameObject");
 		if (playerShip != null) {
@@ -55,7 +53,8 @@ public class rocketControler : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D coll) {
 		//Detect collision of the enemy ship with player ship or bullet
 		if ((coll.tag == "PlayerTag") || (coll.tag == "PlayerBulletTag") || (coll.tag == "EnemyTag") 
-			|| (coll.tag == "AsteroidTag") || (coll.tag == "EnemyBulletTag") || (coll.tag == "RocketTag")) {
+			|| (coll.tag == "AsteroidTag") || (coll.tag == "EnemyBulletTag") || (coll.tag == "RocketTag")
+			|| (coll.tag == "BombTag") || (coll.tag == "SawTag")) {
 				RunExplosion ();
 				scoreText.GetComponent<score> ().ScheduleScore += 3;
 		

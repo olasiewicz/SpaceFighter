@@ -60,8 +60,7 @@ public class protectorSpawner : MonoBehaviour {
 
 	//function to start bomb spawner
 	public void ScheduleProtectionSpawner(){
-		maxSpawnRateInSecond = 5f;
-		Invoke ("spawnProtection", maxSpawnRateInSecond);
+		Invoke ("spawnProtection", 30f);
 
 		//Increase spawn rate every 30s
 		InvokeRepeating("IncreaseSpawnRate", 0f, 30f);

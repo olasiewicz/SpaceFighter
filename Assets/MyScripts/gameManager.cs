@@ -11,6 +11,8 @@ public class gameManager : MonoBehaviour {
 	public GameObject bombSpawner;
 	public GameObject asteroidSpawner;
 	public GameObject protectorSpawner;
+	public GameObject bulletSpawner;
+	public GameObject sawSpawner;
 	public GameObject scoreTextUIGO;
 	public GameObject BackgroundMusicGameObject;
 	GameObject backgroundMusic;
@@ -60,6 +62,8 @@ public class gameManager : MonoBehaviour {
 			asteroidSpawner.GetComponent<asteroidSpawner> ().ScheduleAsteroidSpawner ();
 			bombSpawner.GetComponent<bombSpawner> ().ScheduleBombSpawner ();
 			protectorSpawner.GetComponent<protectorSpawner> ().ScheduleProtectionSpawner ();
+			bulletSpawner.GetComponent<bulletSpawner> ().ScheduleBulletSpawner ();
+			sawSpawner.GetComponent<sawSpawner> ().ScheduleSawSpawner ();
 
 			//reset score
 			scoreTextUIGO.GetComponent<score>().ScheduleScore = 0;
@@ -77,11 +81,17 @@ public class gameManager : MonoBehaviour {
 			asteroidSpawner.GetComponent<asteroidSpawner>().UnscheduleAsteroidSpawner();
 			bombSpawner.GetComponent<bombSpawner>().UnscheduleBombSpawner();
 			protectorSpawner.GetComponent<protectorSpawner> ().UnscheduleProtectionSpawner ();
+			bulletSpawner.GetComponent<bulletSpawner> ().UnscheduleBulletSpawner ();
+			sawSpawner.GetComponent<sawSpawner> ().UnscheduleSawSpawner ();
 		
 			destroyObjects ("EnemyTag");
 			destroyObjects ("AsteroidTag");
 			destroyObjects ("RocketTag");
 			destroyObjects ("TurboTag");
+			destroyObjects ("BombTag");
+			destroyObjects ("ShieldTag");
+			destroyObjects ("SawTag");
+			destroyObjects ("WeaponChargeTag");
 
 			//display game over
 
