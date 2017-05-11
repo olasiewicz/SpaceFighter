@@ -25,12 +25,16 @@ public class playerController : MonoBehaviour {
 	AudioSource shootAudio;
 	AudioSource shieldAudio;
 	AudioSource weaponChargeAudio;
+	AudioSource newLiveAudio;
 	GameObject bulletScore1;
 	GameObject bulletScore2;
 	GameObject bulletScore3;
+    GameObject scoreText;   
 
+    int i;
 	private bool isPlayerProtected = false;
 	int counter;
+    int count;
 	private int bulletCounter;
 
 	public int BulletCounter {
@@ -60,7 +64,9 @@ public class playerController : MonoBehaviour {
 	int lives; //current lives
 
 	public float tilt;
-	public float moveForce, fireMultiplier = 2;
+	public float moveForce;
+	int fireMultiplier = 6;
+	int normalSpeed = 4;
 	Rigidbody2D rigidBody;
 	public Boundary boundary;
 	bool afterFire;
@@ -82,6 +88,8 @@ public class playerController : MonoBehaviour {
 		protector.SetActive (true);
 		clockProtection.GetComponent<clockController> ().InitClock (3);
 		Invoke ("setIsNotPlayerProtected", 3f);
+        i = 1;
+        count = 0;
 	}
 
 	// Use this for initialization
@@ -91,6 +99,7 @@ public class playerController : MonoBehaviour {
 		shootAudio = audio [0];
 		shieldAudio = audio [1];
 		weaponChargeAudio = audio [2];
+		newLiveAudio = audio [3];
 		rigidBody = this.GetComponent<Rigidbody2D> ();
 		protector = GameObject.FindGameObjectWithTag("ProtectorTag");
 		shield = GameObject.FindGameObjectWithTag("ShieldTag");
@@ -100,21 +109,36 @@ public class playerController : MonoBehaviour {
 		bulletScore2 = GameObject.FindGameObjectWithTag("BulletScore2Tag");
 		bulletScore3 = GameObject.FindGameObjectWithTag("BulletScore3Tag");
 		turboFire.SetActive (true);
+        scoreText = GameObject.FindGameObjectWithTag("ScoreTextTag");   
 	}
 
+	void ShouldIncreaseLives ()
+	{
+        count = scoreText.GetComponent<score> ().ScheduleScore; 
+		if(count >= 100 * i) {
+			lives++;
+			LivesUIText.text = lives.ToString ();
+			i++;
+			newLiveAudio.Play ();
+		}
+	}
 
 	void FixedUpdate () {
 		Vector2 moveVec = new Vector2 (CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical")) * moveForce;
 		bool isFire = CrossPlatformInputManager.GetButton ("Fire");
 		bool isTurbo = CrossPlatformInputManager.GetButton ("T");
 	
-		rigidBody.AddForce (moveVec * (isTurbo ? fireMultiplier : 1));
+		rigidBody.AddForce (moveVec * (isTurbo ? fireMultiplier : normalSpeed));
+		rigidBody.velocity *= 0.9f;
 
 		if (isTurbo) {
 			turboFire.SetActive (true);
 		} else {
 			turboFire.SetActive (false);
 			}
+
+		   ShouldIncreaseLives ();
+
 
 		//fire bullet, when button fire pressed
 		if (isFire && !afterFire && isAllowToFire) {
@@ -160,21 +184,31 @@ public class playerController : MonoBehaviour {
 
 		transform.rotation = Quaternion.Euler (0.0f, 0.0f, rigidBody.velocity.x * -tilt);
 
-
 	}
 
 	void OnTriggerEnter2D(Collider2D coll) {
 		//Detect collision of the player ship with enemy ship or bullet
+
+		if (coll.tag == "LiveShipTag") {
+			newLiveAudio.Play ();
+			lives++;
+			LivesUIText.text = lives.ToString ();
+		}
+
+
 		if (((coll.tag == "EnemyTag") || (coll.tag == "EnemyBulletTag") || (coll.tag == "AsteroidTag") || (coll.tag == "RocketTag") 
 			|| (coll.tag == "BombTag") || (coll.tag == "SawTag"))) {
 
 			if (!isPlayerProtected) {
-
+				bulletCounter = 60;
+				BulletScoreController (bulletCounter);
 				RunExplosion ();
 				lives--;
+
 				LivesUIText.text = lives.ToString ();
 				gameObject.SetActive (false);
 				destroyObjects ("RocketTag");
+				ShouldIncreaseLives ();
 		
 				//set player visible after 1s
 				Invoke ("PlayerActiveTrue", 1f);

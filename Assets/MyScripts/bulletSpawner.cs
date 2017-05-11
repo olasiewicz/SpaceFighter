@@ -4,7 +4,7 @@ using System.Collections;
 public class bulletSpawner : MonoBehaviour {
 
 	public GameObject bulletGameObject;//prefab
-	float maxSpawnRateInSecond  =90f;
+	float maxSpawnRateInSecond  =45f;
 
 	//Method to Spawn the bomb
 	void spawnBullet(){
@@ -25,7 +25,7 @@ public class bulletSpawner : MonoBehaviour {
 	void ScheduleNextBullet(){
 		float spawnInSecond;
 		if (maxSpawnRateInSecond > 30f) {
-			spawnInSecond = Random.Range (30f, maxSpawnRateInSecond);
+			spawnInSecond = Random.Range (25f, maxSpawnRateInSecond);
 
 		} else {
 			spawnInSecond = 30f;//1f;

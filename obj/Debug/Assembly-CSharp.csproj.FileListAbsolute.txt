@@ -42,3 +42,11 @@ D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\Temp\bin\Deb
 D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\obj\Debug\Assembly-CSharp.dll
 D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\obj\Debug\Assembly-CSharp.pdb
+D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\Temp\bin\Debug\UnityEngine.Analytics.dll
+D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\Temp\bin\Debug\UnityEngine.HoloLens.dll
+D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\Temp\bin\Debug\UnityEngine.PlaymodeTestsRunner.dll
+D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\Temp\bin\Debug\UnityEngine.VR.dll
+D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\Temp\bin\Debug\UnityEngine.PlaymodeTestsRunner.xml
+D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\Temp\bin\Debug\UnityEngine.Analytics.xml
+D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\Temp\bin\Debug\UnityEngine.HoloLens.xml
+D:\Przyklady kodu\Unity\SpaceFighterArchive\06.11.2016\SpaceFighter\Temp\bin\Debug\UnityEngine.VR.xml

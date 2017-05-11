@@ -50,7 +50,7 @@ public class sawSpawner : MonoBehaviour {
 
 	//function to start bomb spawner
 	public void ScheduleSawSpawner(){
-		Invoke ("spawnSaw", 5f);
+		Invoke ("spawnSaw", 20f);
 
 		//Increase spawn rate every 30s
 		InvokeRepeating("IncreaseSpawnRate", 0f, 30f);

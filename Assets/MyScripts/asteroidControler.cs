@@ -42,7 +42,8 @@ public class asteroidControler : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D coll) {
 		//Detect collision of the asteroid with player ship or bullet
-		if ((coll.tag == "PlayerTag") || (coll.tag == "PlayerBulletTag") || (coll.tag == "SawTag")) {
+		if ((coll.tag == "PlayerTag") || (coll.tag == "PlayerBulletTag") || (coll.tag == "SawTag") || 
+           (coll.tag == "RocketTag") || (coll.tag == "AsteroidTag") || (coll.tag == "EnemyTag") || (coll.tag == "EnemyBulletTag")) {
 			RunExplosion ();
 			shootCount++;
 

@@ -1,11 +1,11 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{3D97B40D-4D68-D2D3-0E30-7D6368B8B2D9}") = "SpaceFighter", "Assembly-CSharp-firstpass.csproj", "{DEA96CB1-4812-66EA-5A1A-A24CC75E9459}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceFighter", "Assembly-CSharp-firstpass.csproj", "{DEA96CB1-4812-66EA-5A1A-A24CC75E9459}"
 EndProject
-Project("{3D97B40D-4D68-D2D3-0E30-7D6368B8B2D9}") = "SpaceFighter", "Assembly-CSharp.csproj", "{593BEF5D-4979-DDA4-D0B8-4BB36FD6B61D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceFighter", "Assembly-CSharp.csproj", "{593BEF5D-4979-DDA4-D0B8-4BB36FD6B61D}"
 EndProject
-Project("{3D97B40D-4D68-D2D3-0E30-7D6368B8B2D9}") = "SpaceFighter", "Assembly-CSharp-Editor.csproj", "{442D0814-8385-8244-9A4B-EB94DE21BE1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceFighter", "Assembly-CSharp-Editor.csproj", "{442D0814-8385-8244-9A4B-EB94DE21BE1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
