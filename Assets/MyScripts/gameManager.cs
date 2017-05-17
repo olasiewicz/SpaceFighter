@@ -32,8 +32,9 @@ public class gameManager : MonoBehaviour {
 	string nickName;
 	string uniqueIdentifier;
 	Text nickLabel;
-	string stringLastID = "";
-	bool ifnickExist = false;
+	//string stringLastID = "";
+	bool isNickExist = false;
+	bool isNetworkConnection = true;
 
 	public enum GameManagerState{Preparing, Opening, GamePlay, GameOver};
 
@@ -88,8 +89,10 @@ public class gameManager : MonoBehaviour {
 			gameOverButton.transform.position = new Vector2 (-100, -100);
 			nickNameGO.transform.position = new Vector2 (-100, -100);
 			nickLabelGO.transform.position = new Vector2 (-100, -100);
-			highScoresButton.transform.position = new Vector2 (Screen.width / 2, Screen.height / 2 + Screen.height / 7);
-			bestScoreCount.transform.position = new Vector2 (Screen.width / 2, Screen.height / 2 + Screen.height / 4);
+			if (isNetworkConnection) {
+				highScoresButton.transform.position = new Vector2 (Screen.width / 2, Screen.height / 2 + Screen.height / 7);
+				bestScoreCount.transform.position = new Vector2 (Screen.width / 2, Screen.height / 2 + Screen.height / 4);
+			}
 			playerShip.SetActive (false);
 			setBestScore ();
 			break;
@@ -173,13 +176,17 @@ public class gameManager : MonoBehaviour {
 	public void StartGamePlay1(){
 		if (GMState == GameManagerState.Preparing) {
 
+			if (!isNetworkConnection) {
+				GMState = GameManagerState.Opening; 
+				UpdateGameManagerState ();
+			}
 
 			string stringEditText = nickEditText.text;
 			if (stringEditText.Equals("")){
 				nickLabel.text = "First Enter Your Nick";
 				return;
 			}
-			ifnickExist = false;
+			isNickExist = false;
 			checkIfNickExist (stringEditText);
 
 		} else {
@@ -231,7 +238,7 @@ public class gameManager : MonoBehaviour {
 
 			if (bestScore >= actualResult) {
 				bestScoreCount.GetComponent<score> ().BestCount = bestScore;
-			} else {
+			} else if (isNetworkConnection){
 				PlayerPrefs.SetInt ("bestScore", scoreTextUIGO.GetComponent<score>().ScheduleScore);
 				bestScoreCount.GetComponent<score>().BestCount = scoreTextUIGO.GetComponent<score>().ScheduleScore;
 			}
@@ -239,10 +246,12 @@ public class gameManager : MonoBehaviour {
 			PlayerPrefs.SetInt ("bestScore", scoreTextUIGO.GetComponent<score> ().ScheduleScore);
 			bestScoreCount.GetComponent<score>().BestCount = scoreTextUIGO.GetComponent<score>().ScheduleScore;
 		}
-			
-		onlineHighScores.GetComponent<HSController> ().updateOnlineHighscoreData ("" + PlayerPrefs.GetInt("MyID") , PlayerPrefs.GetString("Nick"), actualResult);
-		if (bestScore < actualResult) {
+		if (isNetworkConnection) {	
+			onlineHighScores.GetComponent<HSController> ().updateOnlineHighscoreData ("" + PlayerPrefs.GetInt ("MyID"), PlayerPrefs.GetString ("Nick"), actualResult);
+		
+			if (bestScore < actualResult) {
 			onlineHighScores.GetComponent<HSController> ().startPostScores ();
+			}
 		}
 	}
 
@@ -262,8 +271,8 @@ public class gameManager : MonoBehaviour {
 
 		if (hs_getNick.error != null)
 		{
-			//Debug.Log("There was an error getting the high score: " + hs_get.error);
-
+			nickLabel.text = "No internet connection. Connect to the internet or click play button to play without saving your best score online.";
+			isNetworkConnection = false;
 		}
 		else
 		{
@@ -276,11 +285,11 @@ public class gameManager : MonoBehaviour {
 			foreach (string s in nicknamesArray) {
 				if (s.Equals (stringET)) {
 					nickLabel.text = "Nick already exist. Try again";
-					ifnickExist = true;
+					isNickExist = true;
 					break;
 				}
 			}
-			if (ifnickExist == false) {    
+			if (isNickExist == false) {    
 				checkLastID ();
 
 				GMState = GameManagerState.Opening;
@@ -330,17 +339,11 @@ public class gameManager : MonoBehaviour {
 					highestID = i;
 				}
 			}
-			//stringLastID = idArray [idArray.Length - 2];
-			//help= help.Substring(5, hs_get.text.Length-5);
-			//200 is maximum length of highscore - 100 Positions (name+score)
 
 			foreach (string s in idArray) {
 				Debug.Log("halloLastID: " +  s);
 			}
-
-			//onlineHighscore  = helpID.Split(";"[0]);
-			Debug.Log("halloLastID: " +  stringLastID);
-			//int pomID = int.Parse (stringLastID);
+				
 			int myID = highestID + 1;
 			Debug.Log("myID: " +  myID);
 			PlayerPrefs.SetInt ("MyID", myID);
