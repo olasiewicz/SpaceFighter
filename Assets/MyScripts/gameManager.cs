@@ -332,18 +332,18 @@ public class gameManager : MonoBehaviour {
 
 			//Change .text into string to use Substring and Split
 			string helpID = hs_getID.text;
+			//
 			string[] idArray = helpID.Split (';');
+			//Debug.Log ("arrayWojtas: " + idArray.Length);
+			//int[] numbersArrary = helpID.Split(';').Select(n => Convert.ToInt32(n)).ToArray();
 			int highestID = 0;
-			for (int i = 0; i < idArray.Length; i++) {
-				if (i > highestID) {
-					highestID = i;
+			for (int i = 0; i < idArray.Length - 1; i++) {
+				int pom = int.Parse(idArray[i]);
+				if (pom > highestID) {
+					highestID = pom;
 				}
 			}
 
-			foreach (string s in idArray) {
-				Debug.Log("halloLastID: " +  s);
-			}
-				
 			int myID = highestID + 1;
 			Debug.Log("myID: " +  myID);
 			PlayerPrefs.SetInt ("MyID", myID);
